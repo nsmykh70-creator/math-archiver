@@ -1,0 +1,129 @@
+{
+ "collision": {
+  "sample": "abc~def~ 5слово да~нет ~ещё~ детектив",
+  "user_roundtrip_ok": false,
+  "fixed_closed_ok": true,
+  "fixed_closed_encoded": "abcdef 5~smpcp~ ~ea~~oft~ ~fAg~ ~eftfltjc~",
+  "fixed_open_ok": true,
+  "fixed_open_encoded": "abcdef 5~smpcp ~ea~oft ~fAg ~eftfltjc~"
+ },
+ "file": {
+  "bytes": 47470221,
+  "chars": 27445116
+ },
+ "encode_closed": {
+  "bytes": 35850754,
+  "enc_s": 5.57,
+  "dec_s": 6.09,
+  "roundtrip": true
+ },
+ "encode_open": {
+  "bytes": 32014456,
+  "enc_s": 5.43,
+  "dec_s": 6.09,
+  "roundtrip": true
+ },
+ "encode_prune": {
+  "bytes": 35015676,
+  "enc_s": 128.24,
+  "roundtrip": true
+ },
+ "compress": {
+  "orig": {
+   "gzip6": {
+    "bytes": 12724441,
+    "s": 3.8
+   },
+   "xz6": {
+    "bytes": 7910640,
+    "s": 29.8
+   },
+   "zstd3": {
+    "bytes": 12637274,
+    "s": 0.3
+   },
+   "zstd19": {
+    "bytes": 7952197,
+    "s": 27.0
+   }
+  },
+  "closed": {
+   "gzip6": {
+    "bytes": 11598023,
+    "s": 1.9
+   },
+   "xz6": {
+    "bytes": 7501012,
+    "s": 22.1
+   },
+   "zstd3": {
+    "bytes": 10869677,
+    "s": 0.2
+   },
+   "zstd19": {
+    "bytes": 7520555,
+    "s": 21.3
+   }
+  },
+  "open": {
+   "gzip6": {
+    "bytes": 11107253,
+    "s": 1.8
+   },
+   "xz6": {
+    "bytes": 7474092,
+    "s": 19.6
+   },
+   "zstd3": {
+    "bytes": 10469172,
+    "s": 0.2
+   },
+   "zstd19": {
+    "bytes": 7488733,
+    "s": 18.2
+   }
+  },
+  "prune": {
+   "gzip6": {
+    "bytes": 15439467,
+    "s": 3.9
+   },
+   "xz6": {
+    "bytes": 12460720,
+    "s": 22.8
+   },
+   "zstd3": {
+    "bytes": 15472910,
+    "s": 0.3
+   },
+   "zstd19": {
+    "bytes": 12582862,
+    "s": 21.0
+   }
+  }
+ },
+ "micro": {
+  "RU": {
+   "raw": 112,
+   "gzip6": 102,
+   "xz6": 152,
+   "zstd3": 96,
+   "zstd3_dict": 62
+  },
+  "TR": {
+   "raw": 54,
+   "gzip6": 74,
+   "xz6": 112,
+   "zstd3": 63,
+   "zstd3_dict": 67
+  },
+  "EN": {
+   "raw": 51,
+   "gzip6": 69,
+   "xz6": 108,
+   "zstd3": 60,
+   "zstd3_dict": 64
+  }
+ },
+ "micro_dict_bytes": 65536
+}
