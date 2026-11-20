@@ -1,0 +1,139 @@
+{
+ "text": {
+  "corpus_bytes": 13516,
+  "corpus_lines": 82,
+  "raw_xz": 34.63,
+  "translit_xz": 30.54,
+  "prune1_xz": 26.31,
+  "prune2_xz": 25.21,
+  "restore_to_translit_ok": true,
+  "inv_translit_amb_keys": [
+   "E",
+   "Y",
+   "e",
+   "y"
+  ],
+  "amb_dict_xz_bytes": 312,
+  "amb_entries": 8,
+  "amb_words_count": 17,
+  "prune2_lossless_total": 27.52,
+  "restore_chain": "скелет -> (словарь двусмысленностей) -> транслит; кириллица -> обратная таблица + омонимы",
+  "prune2_dict_xz": 63.21,
+  "dict_entries": 573,
+  "dict_xz_bytes": 5136,
+  "ambiguous_words": 8,
+  "restorable": true,
+  "skeleton2_bytes": 6212,
+  "skeleton2_vs_raw_chars": 76.41,
+  "vowels_removed": 2068,
+  "translit_chars": 8304
+ },
+ "journal": {
+  "ops": 200000,
+  "raw_bytes": 718612,
+  "raw_xz": 33.75,
+  "uhc_binary_xz": 33.35,
+  "token_binary_xz": 31.02,
+  "uhc_binary_raw": 58.46,
+  "token_binary_raw": 43.64,
+  "opt_roundtrip_ok": true,
+  "decode_ok": true,
+  "token_entropy_floor_pct": 33.07,
+  "token_entropy_bits": 6.06,
+  "snow_raw_xz": 0.06,
+  "snow_bytes": 650051
+ },
+ "binary": {
+  "segments": [
+   {
+    "name": "text",
+    "desc": "Zipf-текст, ASCII",
+    "bytes": 2097152,
+    "xz": 19.35,
+    "zstd19": 19.3,
+    "delta1_zstd": 21.28,
+    "xorprev_zstd": 21.27,
+    "planesplit_zstd": 51.61,
+    "xorstride16_zstd": 86.4
+   },
+   {
+    "name": "skewed_o0",
+    "desc": "Геометрическое распределение байт (выигрыш порядка 0)",
+    "bytes": 1048576,
+    "xz": 64.43,
+    "zstd19": 63.61,
+    "delta1_zstd": 77.62,
+    "xorprev_zstd": 69.87,
+    "planesplit_zstd": 63.6,
+    "xorstride16_zstd": 98.89
+   },
+   {
+    "name": "markov_o1",
+    "desc": "Марковская цепь порядка 1, 6 вероятных преемников на контекст",
+    "bytes": 1048576,
+    "xz": 36.33,
+    "zstd19": 36.35,
+    "delta1_zstd": 43.72,
+    "xorprev_zstd": 43.71,
+    "planesplit_zstd": 96.06,
+    "xorstride16_zstd": 100.0
+   },
+   {
+    "name": "smooth_signal",
+    "desc": "Гладкий 8-бит сигнал + шум (Delta8)",
+    "bytes": 1048576,
+    "xz": 49.24,
+    "zstd19": 53.05,
+    "delta1_zstd": 37.21,
+    "xorprev_zstd": 43.79,
+    "planesplit_zstd": 63.57,
+    "xorstride16_zstd": 100.0
+   },
+   {
+    "name": "records",
+    "desc": "Структурные 16-байтовые записи (счётчики, метки времени)",
+    "bytes": 1048576,
+    "xz": 47.0,
+    "zstd19": 55.88,
+    "delta1_zstd": 77.08,
+    "xorprev_zstd": 77.49,
+    "planesplit_zstd": 37.4,
+    "xorstride16_zstd": 53.8
+   },
+   {
+    "name": "sparse",
+    "desc": "Нули, ~2% ненулевых байт",
+    "bytes": 1048576,
+    "xz": 5.02,
+    "zstd19": 4.77,
+    "delta1_zstd": 5.45,
+    "xorprev_zstd": 5.47,
+    "planesplit_zstd": 4.73,
+    "xorstride16_zstd": 4.82
+   },
+   {
+    "name": "repeats",
+    "desc": "Повтор блока 4 КиБ со вставками мусора (нужен LZ)",
+    "bytes": 1048576,
+    "xz": 0.9,
+    "zstd19": 0.88,
+    "delta1_zstd": 0.9,
+    "xorprev_zstd": 0.9,
+    "planesplit_zstd": 1.36,
+    "xorstride16_zstd": 100.0
+   },
+   {
+    "name": "random",
+    "desc": "Равномерный random — несжимаем, проверка отсутствия расширения",
+    "bytes": 2097152,
+    "xz": 100.01,
+    "zstd19": 100.0,
+    "delta1_zstd": 100.0,
+    "xorprev_zstd": 100.0,
+    "planesplit_zstd": 100.0,
+    "xorstride16_zstd": 100.0
+   }
+  ],
+  "planesplit_roundtrip_ok": true
+ }
+}
