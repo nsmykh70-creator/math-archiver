@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+*.maf1
+.pytest_cache/
+.venv/
+*.orig
