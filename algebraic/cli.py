@@ -11,13 +11,15 @@ def main(argv=None) -> int:
     )
     sub = p.add_subparsers(dest="cmd", required=True)
 
-    cp = sub.add_parser("compress", help="сжать файл (контейнер MAF1)")
+    cp = sub.add_parser("compress", help="сжать файл (контейнер MAF2)")
     cp.add_argument("infile")
     cp.add_argument("outfile")
     cp.add_argument("--snapshot", type=int, default=0,
                     help="снапшот каждые N шагов журнала (0 — выключено)")
+    cp.add_argument("--backend", choices=("xz", "zstd", "gzip"), default="xz",
+                    help="статистический компрессор (по умолчанию xz/LZMA2)")
 
-    dp = sub.add_parser("decompress", help="распаковать контейнер MAF1")
+    dp = sub.add_parser("decompress", help="распаковать контейнер MAF1/MAF2")
     dp.add_argument("infile")
     dp.add_argument("outfile")
 
@@ -35,7 +37,7 @@ def main(argv=None) -> int:
         return 0
 
     if args.cmd == "compress":
-        out = compress_bytes(data, snapshot_every=args.snapshot)
+        out = compress_bytes(data, snapshot_every=args.snapshot, backend=args.backend)
         with open(args.outfile, "wb") as f:
             f.write(out)
         if data:
