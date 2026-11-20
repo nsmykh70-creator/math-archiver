@@ -4,3 +4,6 @@ __pycache__/
 .pytest_cache/
 .venv/
 *.orig
+
+uhc/uhc_workspace/target/
+uhc/uhc_web/wasm_bridge/target/

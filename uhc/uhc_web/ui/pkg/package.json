@@ -1,0 +1,15 @@
+{
+  "name": "uhc_wasm",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "uhc_wasm_bg.wasm",
+    "uhc_wasm.js",
+    "uhc_wasm.d.ts"
+  ],
+  "main": "uhc_wasm.js",
+  "types": "uhc_wasm.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

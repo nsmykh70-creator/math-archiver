@@ -84,6 +84,17 @@ python benchmarks/bench.py [--quick]
 
 Полные таблицы по каждому набору — в [benchmarks/RESULTS.md](benchmarks/RESULTS.md).
 
+## UHC — Rust-ядро и веб-версия (WASM)
+
+В репозиторий интегрирован прототип `uhc_web.zip` (Universal Hybrid Codec):
+нативное Rust-ядро с zstd/BLAKE3/rayon (`uhc/uhc_workspace`), WASM-мост
+(`uhc/uhc_web/wasm_bridge`) и веб-интерфейс. Режимы 1/2 для текста —
+осознанно потерьный «скелет» (исправлен баг с проверкой BLAKE3, добавлены
+6 тестов roundtrip). Подробности — в [uhc/README_RU.md](uhc/README_RU.md).
+
+**Веб-версия приложения опубликована на GitHub Pages:**
+https://nsmykh70-creator.github.io/math-archiver/ (исходники сайта — в `docs/`).
+
 ## Ограничения — предел Шеннона
 
 Сжать без потерь можно только избыточность. Структурированные данные

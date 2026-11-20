@@ -1,0 +1,3 @@
+[workspace]
+members = ["uhc_core", "uhc_cli"]
+resolver = "2"

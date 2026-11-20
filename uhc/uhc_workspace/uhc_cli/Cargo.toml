@@ -1,0 +1,7 @@
+[package]
+name = "uhc_cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+uhc_core = { path = "../uhc_core" }

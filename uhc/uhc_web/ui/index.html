@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UHC Web Archiver — Универсальный гибридный архиватор</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --ok: #22c55e;
+      --err: #f87171;
+    }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      width: 100%;
+      max-width: 820px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    h1 { margin: 0 0 6px; font-size: 22px; }
+    .subtitle { color: var(--muted); font-size: 14px; margin: 0; }
+    .dropzone {
+      border: 2px dashed var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .dropzone.dragover {
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+    }
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      margin-top: 12px;
+      background: #0b1120;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 13px;
+      resize: vertical;
+    }
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); }
+    select, input[type="range"] {
+      background: #0b1120;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    button {
+      background: var(--accent);
+      color: #06121e;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover { background: var(--accent-hover); color: #fff; }
+    button.secondary {
+      background: #334155;
+      color: var(--text);
+    }
+    button.secondary:hover { background: #475569; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat-box {
+      background: #0b1120;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .stat-label { font-size: 12px; color: var(--muted); }
+    .stat-val { font-size: 16px; font-weight: 700; margin-top: 4px; }
+    .status { margin-top: 10px; font-size: 13px; }
+    .ok { color: var(--ok); }
+    .err { color: var(--err); }
+    code { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>UHC Web Archiver</h1>
+      <p class="subtitle">Клиентский веб-интерфейс универсального гибридного кодека (Wasm + доменная предобработка + контроль целостности BLAKE3)</p>
+    </div>
+
+    <div class="card">
+      <div id="dropzone" class="dropzone">
+        <div>Перетащите файл или архив <code>.uhc</code> сюда или нажмите для выбора файла</div>
+        <input id="fileInput" type="file" hidden />
+      </div>
+
+      <label style="margin-top: 12px;">
+        Или введите / вставьте текст или журнал операций (например: <code>100</code>, <code>+15</code>, <code>*3</code>, <code>-20</code>):
+        <textarea id="textInput" placeholder="В тихом утреннем лесу... или 100&#10;+15&#10;*3&#10;-20"></textarea>
+      </label>
+
+      <div class="controls">
+        <label>
+          Режим UHC
+          <select id="modeSelect">
+            <option value="0">0 — Без потерь (Lossless)</option>
+            <option value="1">1 — Лёгкое прореживание / дельты</option>
+            <option value="2">2 — Агрессивный режим</option>
+          </select>
+        </label>
+        <label>
+          Уровень сжатия: <span id="levelVal">6</span>
+          <input id="levelRange" type="range" min="1" max="9" value="6" />
+        </label>
+        <label>
+          Размер блока (КБ): <span id="blockVal">128</span>
+          <input id="blockRange" type="range" min="16" max="512" step="16" value="128" />
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="compressBtn">Сжать в .uhc</button>
+        <button id="decompressBtn" class="secondary">Распаковать архив</button>
+        <button id="downloadBtn" class="secondary" disabled>Скачать результат</button>
+      </div>
+
+      <p class="subtitle" style="margin-top: 10px;">
+        Режим 0 — строго без потерь. Режимы 1/2: журналы операций — без потерь
+        (дельта-упаковка), текст — осознанно потерьный «скелет» (транслит +
+        прореживание), восстановление текста не гарантируется.
+      </p>
+
+      <div id="status" class="status">Готов к работе. Подключите скомпилированный WASM-модуль или используйте встроенный демо-режим.</div>
+    </div>
+
+    <div class="card">
+      <strong>Метрики последней операции</strong>
+      <div class="stats">
+        <div class="stat-box"><div class="stat-label">Вход</div><div id="statIn" class="stat-val">—</div></div>
+        <div class="stat-box"><div class="stat-label">Выход</div><div id="statOut" class="stat-val">—</div></div>
+        <div class="stat-box"><div class="stat-label">Соотношение</div><div id="statRatio" class="stat-val">—</div></div>
+        <div class="stat-box"><div class="stat-label">Время</div><div id="statTime" class="stat-val">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+[package]
+name = "uhc_core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rayon = "1.10"
+zstd = "0.13"
+thiserror = "1.0"
+blake3 = "1.5"
