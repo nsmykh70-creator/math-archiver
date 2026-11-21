@@ -1,5 +1,6 @@
 """CLI: compress / decompress / info."""
 import argparse
+import hashlib
 
 from .container import compress_bytes, decompress_bytes, detect_kind
 
@@ -42,6 +43,7 @@ def main(argv=None) -> int:
             f.write(out)
         if data:
             print(f"{len(data)} -> {len(out)} байт (экономия {100 - len(out) / len(data) * 100:.2f}%)")
+            print(f"sha256 исходника: {hashlib.sha256(data).hexdigest()}")
         else:
             print("пустой файл")
         return 0
@@ -50,4 +52,5 @@ def main(argv=None) -> int:
     with open(args.outfile, "wb") as f:
         f.write(out)
     print(f"восстановлено {len(out)} байт")
+    print(f"sha256: {hashlib.sha256(out).hexdigest()} — сравните с исходником")
     return 0

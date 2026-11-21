@@ -163,7 +163,12 @@ def _decode_maf1(frame: bytes) -> bytes:
     (orig_len,) = struct.unpack(">Q", frame[6:HEADER_LEN])
     body = frame[HEADER_LEN:]
     if flag & 1:
-        body = _unxz_maf1(body)
+        try:
+            body = _unxz_maf1(body)
+        except ValueError:
+            raise
+        except Exception:
+            raise ValueError("повреждённая нагрузка MAF1") from None
     if flag & 2:
         try:
             body = _codec_decode(kind, body)
