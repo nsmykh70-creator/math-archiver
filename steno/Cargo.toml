@@ -1,0 +1,17 @@
+[package]
+name = "steno"
+version = "0.1.0"
+edition = "2021"
+description = "Кодирование текста аккордами пронумерованной стенографической клавиатуры: 100% lossless"
+license = "MIT"
+
+[lib]
+name = "steno"
+path = "src/lib.rs"
+
+[[bin]]
+name = "steno-demo"
+path = "src/main.rs"
+
+[dependencies]
+# только std — внешних зависимостей нет
